@@ -72,5 +72,20 @@ DB_CONFIG = {
     'connect_timeout': 10,
     'cursorclass': pymysql.cursors.DictCursor
 }
-'''
+```
 ## Plaintext
+Connecting to ******* on port ****...
+SUCCESS: Connected to MySQL Server!
+
+--- CUI STUDENT ENTRY SYSTEM ---
+Enter Student Name: Pranav
+Enter Roll no: 25
+
+Enter marks for Pranav:
+Science: 85
+Social: 90
+Maths: 95
+Eng: 88
+Hindi: 92
+Kannada: 96
+[SUCCESS] Data successfully uploaded to MySQL Server.
