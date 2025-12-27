@@ -1,8 +1,8 @@
 # 🎓 Student Marks Management System
 
-A robust **Console User Interface (CUI)** application built with Python and MySQL to manage student academic records. This project demonstrates database normalization, Python-SQL connectivity, and efficient data entry workflows.
+A robust **Console User Interface (CUI)** application built with Python and MySQL to manage student academic records. This project demonstrates database normalization, Python-SQL connectivity, and efficient data entry workflows using a remote database server.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat&logo=python)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python)
 ![MySQL](https://img.shields.io/badge/Database-MySQL-orange?style=flat&logo=mysql)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
@@ -12,15 +12,15 @@ This application serves as a data entry tool for educational institutions. It al
 1.  Register new students or identify existing ones by Roll Number.
 2.  Input marks for a predefined curriculum (Science, Social, Maths, English, Hindi, Kannada).
 3.  Automatically generate unique transaction IDs (UUID) for every record.
-4.  Store data securely in a normalized relational database.
+4.  Store data securely in a normalized relational database on a remote server.
 
 ## ⚙️ Features
 
-* **Remote Database Connection:** Capable of connecting to remote MySQL servers on custom ports.
+* **Remote Database Connection:** Capable of connecting to remote MySQL servers (e.g., `oemr.in`) on custom ports (e.g., `9522`).
 * **Data Normalization:** Uses three separate tables (`STUDENTS`, `SUBJECTS`, `MARKS`) to reduce redundancy.
 * **Smart Error Handling:** * Detects if a student already exists and automatically switches to "Update" mode.
     * Validates integer inputs to prevent crashes.
-    * Handles network timeouts gracefully.
+    * Handles network timeouts and SSL handshakes gracefully using `pymysql`.
 * **Secure Configuration:** Uses dictionary unpacking (`**kwargs`) for clean and secure database connection management.
 
 ## 🗄️ Database Schema
@@ -31,13 +31,13 @@ The project uses a Relational Database design:
 | :--- | :--- | :--- |
 | **STUDENTS** | `ROLL_NO` | Stores student Name and Roll Number. |
 | **SUBJECTS** | `SUBJ_ID` | Stores Subject IDs (101-106) and Names. |
-| **MARKS** | `ID` (UUID) | Links Student, Subject, and Marks together. |
+| **MARKS** | `ID` (CHAR 36) | Links Student, Subject, and Marks together using UUIDs. |
 
 ## 🛠️ Tech Stack
 
-* **Language:** Python 3.10+
-* **Database:** MySQL (Remote or Local)
-* **Libraries:** * `pymysql` (For database connectivity)
+* **Language:** Python 3.x
+* **Database:** MySQL (Remote Server)
+* **Libraries:** * `pymysql` (For robust database connectivity)
     * `uuid` (For generating unique IDs)
     * `sys` (For standard input handling)
 
@@ -56,49 +56,19 @@ The project uses a Relational Database design:
     ```
 
 3.  **Database Setup:**
-    Execute the following SQL commands in your MySQL Workbench or DBeaver to create the required tables:
-    ```sql
-    CREATE TABLE IF NOT EXISTS STUDENTS (
-        ROLL_NO INT PRIMARY KEY,
-        NAME VARCHAR(50)
-    );
-    
-    CREATE TABLE IF NOT EXISTS SUBJECTS (
-        SUBJ_ID INT PRIMARY KEY,
-        SUBJ_NAME VARCHAR(50)
-    );
-
-    CREATE TABLE IF NOT EXISTS MARKS (
-        ID CHAR(36) PRIMARY KEY, 
-        ROLL_NO INT,
-        SUBJ_ID INT,
-        MARKS INT,
-        FOREIGN KEY (ROLL_NO) REFERENCES STUDENTS(ROLL_NO),
-        FOREIGN KEY (SUBJ_ID) REFERENCES SUBJECTS(SUBJ_ID)
-    );
-    
-    -- Pre-populate subjects
-    INSERT IGNORE INTO SUBJECTS VALUES
-    (101, 'Science'),
-    (102, 'Social'),
-    (103, 'Maths'),
-    (104, 'English'),
-    (105, 'Hindi'),
-    (106, 'Kannada');
-    ```
+    Ensure your MySQL server has the required tables (`STUDENTS`, `SUBJECTS`, `MARKS`) created.
 
 ## 📝 Configuration
 
 Open the `main.py` file and update the `DB_CONFIG` dictionary with your database credentials. 
 
-> **⚠️ IMPORTANT:** Never commit your real passwords to GitHub! Use environment variables or a separate config file in a real-world scenario.
-
 ```python
 DB_CONFIG = {
-    'host': 'your-server-ip.com',  # e.g., localhost or a remote IP
-    'port': ****,                  # Default is 3306, change if needed
-    'user': 'admin',
-    'password': 'admin',
-    'database': 'school_db',
+    'host': 'oemr.in',             # Remote Server Host
+    'port': 9522,                  # Custom Port
+    'user': 'school-admin',        # Username
+    'password': 'YourPassword',    # Password
+    'database': 'school_db',       # Database Name
+    'connect_timeout': 10,
     'cursorclass': pymysql.cursors.DictCursor
 }
