@@ -79,7 +79,7 @@ SUCCESS: Connected to MySQL Server!
 
 --- CUI STUDENT ENTRY SYSTEM ---
 Enter Student Name: Pranav
-Enter Roll no: 25
+Enter Roll no: 21
 
 Enter marks for Pranav:
 Science: 85
