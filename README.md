@@ -8,7 +8,7 @@ A robust **Console User Interface (CUI)** application built with Python and MySQ
 
 ## 📥 Download
 Don't have Python installed? No problem.
-[<img src="https://img.shields.io/badge/Windows-Download_App-0078D6?style=for-the-badge&logo=windows" />](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/releases)
+[<img src="https://img.shields.io/badge/Windows-Download_App-0078D6?style=for-the-badge&logo=windows" />](https://github.com/toxicbishop/python sql-marks/releases)
 ## 📖 Overview
 
 This application serves as a data entry tool for educational institutions. It allows administrators to:
