@@ -5,14 +5,13 @@ import uuid
 
 # --- CONFIGURATION ---
 DB_CONFIG = {
-    'host': 'oemr.in',
-    'port': 9522,
-    'user': 'school-admin',
-    'password': 'School@2025',
+    'host': localhost,
+    'port': 3306,
+    'user': root,
+    'password': root,
     'database': 'school_db',
     'cursorclass': pymysql.cursors.DictCursor
 }
-
 class StudentApp:
     def __init__(self, root):
         self.root = root
@@ -128,4 +127,5 @@ class StudentApp:
 if __name__ == "__main__":
     root = tk.Tk()
     app = StudentApp(root)
+
     root.mainloop()
