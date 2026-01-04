@@ -1,15 +1,21 @@
+import os
+from dotenv import load_dotenv # Import this
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import messagebox
 import pymysql
 import uuid
 
-# --- CONFIGURATION ---
+# 1. Load the secrets from the .env file
+load_dotenv()
+
+# 2. Get the values safely
+# If the file is missing, these will be None
 DB_CONFIG = {
-    'host': localhost,
-    'port': 3306,
-    'user': root,
-    'password': root,
-    'database': 'school_db',
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT', 3306)), # Default to 3306 if missing
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASS'),
+    'database': os.getenv('DB_NAME'),
     'cursorclass': pymysql.cursors.DictCursor
 }
 class StudentApp:
@@ -129,3 +135,4 @@ if __name__ == "__main__":
     app = StudentApp(root)
 
     root.mainloop()
+
