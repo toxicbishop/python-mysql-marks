@@ -64,4 +64,5 @@ To bypass this:
 2.  Click the **"Run anyway"** button.
 *(This happens because the app was built by an individual developer, not a registered corporation.)*
 
-⚠️ Use the .env to store the Database Credentials only
+## ⚠️ Use the .env to store the Database Credentials only
+⚠️ Important: Since the app relies on a .env file for database credentials, you keep a .env file in the same directory as the .exe.
