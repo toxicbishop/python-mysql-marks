@@ -1,2 +1,20 @@
-# To ignore .env file while uploading
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
 .env
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# IDEs
+.vs/
+.vscode/
+
+# Project specific
+Student-GUI-with-SQL/GUI-App-v2/build/
+Student-GUI-with-SQL/GUI-App-v2/dist/
+Student-GUI-with-SQL/GUI-App-v2/*.spec
