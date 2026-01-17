@@ -11,6 +11,7 @@ A comprehensive Student Management System built with Python, featuring two disti
 ├── LICENSE
 ├── README.md
 ├── .gitignore
+├── .gitattributes
 └── Student-GUI-with-SQL/
     ├── Student-GUI-version1/      # Basic Version
     │   ├── gui_app.py
