@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import customtkinter as ctk
 from database_helper import DatabaseHelper
+from input_validator import validate_student_data, validate_search_term, sanitize_string
 import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -134,21 +135,24 @@ class StudentAppPro(ctk.CTk):
         name = self.name_entry.get()
         roll = self.roll_entry.get()
 
-        if not name or not roll:
-            messagebox.showerror("Error", "Name and Roll Number are required!")
-            return
+        # Collect marks as strings for validation
+        marks_input = {}
+        for sub, entry in self.entries.items():
+            marks_input[sub] = entry.get()
 
-        marks = {}
-        for sub, entries in self.entries.items():
-            val = entries.get()
-            if val == "": continue
-            try:
-                marks[sub] = int(val)
-            except ValueError:
-                messagebox.showerror("Error", f"Marks for {sub} must be a number!")
-                return
+        # Validate all input data using the input validator
+        is_valid, error_msg, validated_data = validate_student_data(name, roll, marks_input)
         
-        success, msg = self.db.save_student_marks(name, roll, marks)
+        if not is_valid:
+            messagebox.showerror("Validation Error", error_msg)
+            return
+        
+        # Use validated and sanitized data
+        success, msg = self.db.save_student_marks(
+            validated_data['name'], 
+            validated_data['roll_no'], 
+            validated_data['marks']
+        )
         if success:
             messagebox.showinfo("Success", "Student record saved successfully!")
             self.clear_form()
@@ -229,8 +233,18 @@ class StudentAppPro(ctk.CTk):
             self.tree.insert("", "end", values=val_list)
 
     def filter_table(self):
-        search_term = self.search_entry.get().lower()
+        search_term = self.search_entry.get()
+        
+        # Validate search term to prevent injection
+        is_valid, error_msg = validate_search_term(search_term)
+        if not is_valid:
+            messagebox.showwarning("Warning", error_msg)
+            return
+        
+        search_term = sanitize_string(search_term).lower()
         records = self.db.get_all_records()
+        if records is None:
+            return
         filtered = [r for r in records if search_term in str(r['ROLL_NO']).lower() or search_term in r['NAME'].lower()]
         self.update_table_data(filtered)
 

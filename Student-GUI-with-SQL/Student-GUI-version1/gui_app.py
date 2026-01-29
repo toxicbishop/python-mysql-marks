@@ -4,6 +4,7 @@ import tkinter as tk  # The standard Python interface to the Tcl/Tk GUI toolkit,
 from tkinter import messagebox  # A submodule of tkinter used specifically to display pop-up dialogs (e.g., error messages, warnings, info alerts).
 import pymysql  # A pure-Python MySQL client library used to connect to and communicate with a MySQL database.
 import uuid  # Used to generate Universally Unique Identifiers (UUIDs), often used for creating unique primary keys for database records.
+from input_validator import validate_student_data, sanitize_string  # Input validation to prevent SQL injection
 
 load_dotenv() # 1. Load the secrets from the .env file
 
@@ -69,15 +70,22 @@ class StudentApp:
         name = self.name_entry.get()
         roll_txt = self.roll_entry.get()
 
-        if not name or not roll_txt:
-            messagebox.showerror("Error", "Please fill Name and Roll Number")
-            return
+        # Collect marks as strings for validation
+        marks_input = {}
+        for sub_name in self.subjects:
+            marks_input[sub_name] = self.entries[sub_name].get()
 
-        try:
-            roll_no = int(roll_txt)
-        except ValueError:
-            messagebox.showerror("Error", "Roll Number must be an integer")
+        # Validate all input data using the input validator
+        is_valid, error_msg, validated_data = validate_student_data(name, roll_txt, marks_input)
+        
+        if not is_valid:
+            messagebox.showerror("Validation Error", error_msg)
             return
+        
+        # Use validated and sanitized data
+        name = validated_data['name']
+        roll_no = validated_data['roll_no']
+        marks = validated_data['marks']
 
         # Connect to Database
         conn = None
@@ -100,18 +108,14 @@ class StudentApp:
             # Map names to IDs
             sub_ids = {"Science": 101, "Social": 102, "Maths": 103, "English": 104, "Hindi": 105, "Kannada": 106}
 
-            for sub_name in self.subjects:
-                val_txt = self.entries[sub_name].get()
-                if not val_txt: continue # Skip empty boxes
-                
-                marks = int(val_txt)
+            for sub_name, marks_value in marks.items():
                 sub_id = sub_ids[sub_name]
                 unique_id = str(uuid.uuid4())
 
                 cursor.execute("""
                     INSERT INTO MARKS (ID, ROLL_NO, SUBJ_ID, MARKS) 
                     VALUES (%s, %s, %s, %s)
-                """, (unique_id, roll_no, sub_id, marks))
+                """, (unique_id, roll_no, sub_id, marks_value))
 
             conn.commit()
             messagebox.showinfo("Success", f"Data saved for {name}!")
