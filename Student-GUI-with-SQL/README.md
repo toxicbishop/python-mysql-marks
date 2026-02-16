@@ -2,8 +2,6 @@
 
 A professional Student Management System built with **Java Swing** and **MySQL**. This application features a modern dark-themed UI (using FlatLaf), data visualization, and export capabilities.
 
-![Pro Student Management System](https://raw.githubusercontent.com/toxicbishop/Student-GUI-With-SQL/readme-assets/screenshot.png) *(Pending screenshot)*
-
 ## 🚀 Features
 
 - **Modern UI**: Clean, dark-themed interface powered by FlatLaf.
