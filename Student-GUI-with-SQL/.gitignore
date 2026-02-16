@@ -44,3 +44,13 @@ Desktop.ini
 # Project specific
 GUI-App-v2/
 student_report_*.xlsx
+
+# Java
+target/
+*.class
+*.jar
+.project
+.classpath
+.settings/
+*.iml
+student_report_*.csv
