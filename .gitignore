@@ -44,3 +44,11 @@ Desktop.ini
 # Project specific
 GUI-App-v2/
 student_report_*.xlsx
+
+# Exclude sibling projects not part of this repo
+/Banking_problem/
+/Music_with_help_of_python/
+/Slot-Machine/
+/request_API_From_PokeAPI/
+/GUI/
+/QR_Code_Gen/
