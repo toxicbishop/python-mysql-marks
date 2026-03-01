@@ -5,7 +5,6 @@ __pycache__/
 *.so
 .Python
 env/
-build/
 develop-eggs/
 dist/
 downloads/
@@ -28,6 +27,8 @@ ENV/
 
 # Environment Variables
 .env
+*.env
+!.env.example
 
 # IDEs
 .vscode/
@@ -36,21 +37,49 @@ ENV/
 *.swo
 .vs/
 *.spec
+.settings/
 
 # OS
 Thumbs.db
 Desktop.ini
+.DS_Store
+
+# Build outputs & logs
+build/
+build_output/
+build_output_fixed/
+build_output_final/
+build_output_manual/
+output/
+target/
+src/
+*.log
+build_log.txt
+compile_log.txt
+fix_log.txt
+jar_content.txt
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+.project
+.classpath
+*.iml
+
+# Tools & temp
+tools/
 
 # Project specific
 GUI-App-v2/
 student_report_*.xlsx
-
-# Java
-target/
-*.class
-*.jar
-.project
-.classpath
-.settings/
-*.iml
 student_report_*.csv
+
+# Exclude sibling projects not part of this repo
+/Banking_problem/
+/Music_with_help_of_python/
+/Slot-Machine/
+/request_API_From_PokeAPI/
+/GUI/
+/QR_Code_Gen/
