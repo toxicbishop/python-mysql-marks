@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.db/
+.env
+build/
+dist/
+*.spec
+.git/
+.gitignore
+.vscode/
+.vs/
+*.xlsx
+*.log

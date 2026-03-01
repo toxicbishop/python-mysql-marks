@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<jpackage-state version="25" platform="windows">
+  <app-version>1.0</app-version>
+  <main-launcher>StudentGUI</main-launcher>
+  <main-class>com.studentgui.ui.StudentApp</main-class></jpackage-state>
