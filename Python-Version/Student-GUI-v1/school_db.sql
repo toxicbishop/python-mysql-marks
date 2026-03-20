@@ -1,0 +1,31 @@
+-- 1. Create STUDENTS Table
+CREATE TABLE IF NOT EXISTS STUDENTS (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50)
+);
+
+-- 2. Create SUBJECTS Table
+CREATE TABLE IF NOT EXISTS SUBJECTS (
+    SUBJ_ID INT PRIMARY KEY,
+    SUBJ_NAME VARCHAR(50)
+);
+
+-- 3. Create MARKS Table
+-- We use CHAR(36) to store the UUID string
+CREATE TABLE IF NOT EXISTS MARKS (
+    ID CHAR(36) PRIMARY KEY, 
+    ROLL_NO INT,
+    SUBJ_ID INT,
+    MARKS INT,
+    FOREIGN KEY (ROLL_NO) REFERENCES STUDENTS(ROLL_NO),
+    FOREIGN KEY (SUBJ_ID) REFERENCES SUBJECTS(SUBJ_ID)
+);
+
+-- 4. Pre-load the subjects from your whiteboard
+INSERT IGNORE INTO SUBJECTS (SUBJ_ID, SUBJ_NAME) VALUES 
+(101, 'Science'),
+(102, 'Social'),
+(103, 'Maths'),
+(104, 'English'),
+(105, 'Hindi'),
+(106, 'Kannada');
