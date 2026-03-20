@@ -1,8 +1,0 @@
-pymysql
-python-dotenv
-uuid-utils
-pandas
-matplotlib
-customtkinter
-openpyxl
-pyinstaller
